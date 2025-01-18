@@ -12,6 +12,7 @@
 - **全体禁言**: 对所有玩家进行禁言或解除禁言。
 - **核弹管理**: 开启或关闭核弹功能。
 - **最大队伍ID设置**: 设置游戏中的最大队伍ID。
+- **等等**
 
 ## 安装指南
 
@@ -29,23 +30,12 @@
    将下载的 Jar 文件放置到铁锈战争的插件目录中。默认路径为：
 
    ```
-   铁锈战争目录/
+   rustedWarfare/
    └── js/
        └── RWC-Mod-Command.jar
    ```
 
-3. **配置文件**  
-   插件的配置文件 `config.json` 位于插件目录下。初始配置如下：
-
-   ```json:config.json
-   {
-     "enabled": true
-   }
-   ```
-
-   根据需要修改配置文件以启用或禁用特定功能。
-
-4. **启动游戏**  
+3. **启动游戏**  
    启动铁锈战争插件版，插件将自动加载并启用。
 
 ## 使用指南
@@ -140,6 +130,8 @@
 
   开启或关闭核弹功能，例如 `.unkes true` 开启核弹。
 
+- **等等**
+
 ## 开发指南
 
 ### 构建项目
@@ -147,7 +139,7 @@
 1. **克隆仓库**
 
    ```bash
-   git clone https://github.com/your-repo/RWC-Mod-Command.git
+   git clone https://github.com/MoYangking/RWC-Mod-Command.git
    ```
 
 2. **进入项目目录**
@@ -163,7 +155,7 @@
 4. **构建插件**
 
    ```bash
-   ./gradlew build
+   ./gradlew deploy
    ```
 
    构建完成后，生成的 Jar 文件位于 `build/libs` 目录下。
