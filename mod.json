@@ -1,0 +1,9 @@
+{
+  "name": "RWC-Mod-Command",
+  "author": "MoYang",
+  "description": "为插件版本添加指令",
+  "version": "v0.1",
+  "displayName" : "指令插件",
+  "java": true,
+  "main": "command.Main"
+}
