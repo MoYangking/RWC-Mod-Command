@@ -168,10 +168,6 @@
 
 欢迎提交 Issue 和 Pull Request 来贡献代码或报告问题。请确保遵循项目的编码规范和提交规范。
 
-## 许可协议
-
-本项目基于 MIT 许可协议。详情请参阅 [LICENSE](LICENSE)。
-
 ## 致谢
 
 感谢 [Mindustry](https://github.com/Anuken/Mindustry) 提供的插件系统灵感，以及所有贡献者的辛勤工作。

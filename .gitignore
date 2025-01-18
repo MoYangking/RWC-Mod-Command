@@ -155,4 +155,3 @@ gradle-app.setting
 Thumbs.db
 android/libs/
 .vscode/settings.json
-.gitignore
