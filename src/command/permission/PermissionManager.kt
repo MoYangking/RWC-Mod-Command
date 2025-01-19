@@ -63,6 +63,10 @@ object PermissionManager {
         return mutedPlayers.contains(playerName)
     }
 
+    fun getMutedPlayers(): Set<String> {
+        return mutedPlayers.toSet()
+    }
+
     fun checkAndRemoveCommand(command: GameCommand) {
         if (bannedUnits.contains(command.actionId?.replace("u_", ""))) {
             command.removeCommand()

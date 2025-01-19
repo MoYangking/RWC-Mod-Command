@@ -21,11 +21,12 @@ class CommandInitializer(private val commandManager: CommandManager, private val
             registerCommand("unbanunit", UnBanUnitCommand())
             registerCommand("unkes", UnkesCommand())
             registerCommand("autoteam", SetAutoTeamCommand())
-            registerCommand("su", SummonUnitCommand())
+            registerCommand("summon", SummonUnitCommand())
         }
 
         // 注册命令别名
         with(CommandAliasManager) {
+            
             addAlias("h", "help")
             addAlias("si", "income")
             addAlias("k", "kick")
@@ -38,6 +39,7 @@ class CommandInitializer(private val commandManager: CommandManager, private val
             addAlias("ubu", "unbanunit")
             addAlias("uk", "unkes")
             addAlias("at", "autoteam")
+            addAlias("su", "summon")
         }
     }
 } 

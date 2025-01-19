@@ -19,6 +19,7 @@ import command.utils.CommandUtils
 import command.Config
 import android.widget.Toast
 import com.moyang.rustedwarfare.js.RWApplication
+import command.ui.hook.UiHook
 
 class Main : Mod() {
     private lateinit var commandManager: CommandManager
@@ -37,6 +38,7 @@ class Main : Mod() {
     override fun loadContent(){
         initializeComponents()
         registerEventHandlers()
+        UiHook(commandManager).init()
     }
 
     private fun initializeComponents() {
@@ -67,7 +69,5 @@ class Main : Mod() {
         Events.on(NewCommandEvent::class.java) { event ->
             newCommandEventHandler.handle(event)
         }
-
-        
     }
 }
