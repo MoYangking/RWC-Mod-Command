@@ -31,6 +31,7 @@ dependencies{
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly "org.mozilla:rhino:1.7.13"
     compileOnly 'de.robv.android.xposed:api:82'
+
 }
 
 compileKotlin{

@@ -222,4 +222,19 @@ object NetTools {
         out.endBlock()
         return out.createPacket(PacketTypes.PACKET_TICK)
 }
+
+    fun sendTeamMessage(str: String?) {
+        val modifiedStr = str?.trim()?.let {
+            if ((it.startsWith("-") || it.startsWith(".") ||
+                        it.startsWith("_")) && it.length >= 2) {
+                it.substring(1).trim().let { trimmed ->
+                    val indexOf = trimmed.indexOf(" ").takeIf { it != -1 } ?: trimmed.length
+                    trimmed.substring(0, indexOf).lowercase()
+                }.takeUnless { it == "t" || it == "share" }?.let { "-t $str" } ?: str
+            } else {
+                "-t $str"
+            }
+        } ?: str
+        GameEngine.getInstance().netWorkEngine!!.sendChatMessage(modifiedStr)
+    }
 }
