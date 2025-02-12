@@ -31,11 +31,20 @@ class Main : Mod() {
     private lateinit var gameSessionEndEventHandler: GameSessionEndEventHandler
     private lateinit var newCommandEventHandler: NewCommandEventHandler
 
+    companion object {
+        private lateinit var instance: Main
+        
+        fun getInstance(): Main {
+            return instance
+        }
+    }
+
     override fun init(plugin: Plugin) {
         Config.summonUnit = plugin.config.getBoolean("summonunit")
     }
 
-    override fun loadContent(){
+    override fun loadContent() {
+        instance = this
         initializeComponents()
         registerEventHandlers()
         UiHook(commandManager).init()
@@ -69,5 +78,9 @@ class Main : Mod() {
         Events.on(NewCommandEvent::class.java) { event ->
             newCommandEventHandler.handle(event)
         }
+    }
+
+    fun getCommandManager(): CommandManager {
+        return commandManager
     }
 }

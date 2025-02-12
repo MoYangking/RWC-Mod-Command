@@ -7,7 +7,12 @@ import command.core.CommandParser
 
 class CommandInitializer(private val commandManager: CommandManager, private val commandParser: CommandParser) {
     fun initializeCommands() {
-        // 注册基础命令
+        registerBaseCommands()
+        registerCommandAliases()
+    }
+
+    // 将基础命令注册拆分为单独的方法
+    private fun registerBaseCommands() {
         with(commandManager) {
             registerCommand("help", HelpCommand(commandManager))
             registerCommand("setmaxteamid", SetMaxTeamIdCommand())
@@ -23,10 +28,11 @@ class CommandInitializer(private val commandManager: CommandManager, private val
             registerCommand("autoteam", SetAutoTeamCommand())
             registerCommand("summon", SummonUnitCommand())
         }
+    }
 
-        // 注册命令别名
+    // 将命令别名注册拆分为单独的方法
+    private fun registerCommandAliases() {
         with(CommandAliasManager) {
-            
             addAlias("h", "help")
             addAlias("si", "income")
             addAlias("k", "kick")

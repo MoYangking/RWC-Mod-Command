@@ -93,11 +93,9 @@ class UiHook(private val commandManager: CommandManager) {
                     //创建一个自动完成文本框
                     if (!z) {
                         parent.removeView(editText)
-                        editText = createNewEditorText(activity, activity, editText)
+                        editText = createNewEditorText(activity, editText)
                         parent.addView(editText)
                     }
-
-                    //替换原始控件
                     
 
                     textView.text = GameEngine.getInstance().netWorkEngine!!.originalObject.aE.a()
@@ -115,15 +113,15 @@ class UiHook(private val commandManager: CommandManager) {
 
                     builder.setNeutralButton("Send & Ping Map") { _, _ ->
                         val text = editText.text.toString()
-                        val gameEngine = GameEngine.getInstance().originalObject
+                        val interfaceEngine = GameEngine.getInstance().interfaceEngine!!
                         if (!text.trim().equals(""))
                             if (z)
                                 NetTools.sendTeamMessage(text)
                             else
                                 GameEngine.getInstance().netWorkEngine!!.sendChatMessage(text)
 
-                        gameEngine.bP.u = false;
-                        gameEngine.bP.l();
+                        interfaceEngine.originalObject.u = false;
+                        interfaceEngine.originalObject.l();
                     }
                     builder.setNegativeButton("Cancel") { _, _ -> }
 
@@ -167,7 +165,7 @@ class UiHook(private val commandManager: CommandManager) {
                     val index = parent.indexOfChild(chatInput)
 
                     // 创建新的输入框
-                    val newEditorText = createNewEditorText(context, activity, chatInput)
+                    val newEditorText = createNewEditorText(context, chatInput)
 
                     // 创建发送按钮
                     val sendButton = Button(context).apply {
@@ -187,16 +185,6 @@ class UiHook(private val commandManager: CommandManager) {
                         }
                     }
 
-                    // 设置回车发送
-                    newEditorText.setOnEditorActionListener { _, actionId, _ ->
-                        if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEND) {
-                            sendButton.performClick()
-                            true
-                        } else {
-                            false
-                        }
-                    }
-
                     // 替换原有控件
                     parent.removeView(chatInput)
                     parent.removeView(originalSendButton)
@@ -208,7 +196,7 @@ class UiHook(private val commandManager: CommandManager) {
     }
 
     @SuppressLint("WrongConstant")
-    private fun createNewEditorText(context: Context, activity: Activity, chatInput: EditText): MultiAutoCompleteTextView {
+    private fun createNewEditorText(context: Context, chatInput: EditText): MultiAutoCompleteTextView {
         return MultiAutoCompleteTextView(context).apply {
             layoutParams = chatInput.layoutParams
             hint = "输入命令或聊天内容..."
@@ -231,11 +219,11 @@ class UiHook(private val commandManager: CommandManager) {
 
                     if (command != null) {
                         val suggestions = when (command) {
-                            ".banunit" -> CommandTokenizer.getUnitSuggestions()
-                            ".unbanunit" -> CommandTokenizer.getBannedUnitSuggestions()
-                            ".kick", ".mute" -> CommandTokenizer.getPlayerSuggestions()
-                            ".unmute" -> CommandTokenizer.getMutedPlayerSuggestions()
-                            ".summon" -> CommandTokenizer.getUnitSuggestions()
+                            ".banunit", ".bu" -> CommandTokenizer.getGameUnitSuggestions()
+                            ".unbanunit", ".ubu" -> CommandTokenizer.getBannedUnitSuggestions()
+                            ".kick", ".mute", ".k", ".m" -> CommandTokenizer.getPlayerSuggestions()
+                            ".unmute", ".um" -> CommandTokenizer.getMutedPlayerSuggestions()
+                            ".summon", ".su" -> CommandTokenizer.getGameUnitSuggestions()
                             else -> emptyList()
                         }
 
@@ -288,12 +276,11 @@ class UiHook(private val commandManager: CommandManager) {
                     // 如果正在输入参数
                     if (command != null && argPosition > 0) {
                         val suggestions = when (command) {
-                            ".banunit" -> if (argPosition == 1) CommandTokenizer.getUnitSuggestions() else emptyList()
-                            ".unbanunit" -> if (argPosition == 1) CommandTokenizer.getBannedUnitSuggestions() else emptyList()
-                            ".kick" -> if (argPosition == 1) CommandTokenizer.getPlayerSuggestions() else emptyList()
-                            ".mute" -> if (argPosition == 1) CommandTokenizer.getPlayerSuggestions() else emptyList()
-                            ".unmute" -> if (argPosition == 1) CommandTokenizer.getMutedPlayerSuggestions() else emptyList()
-                            ".summon" -> if (argPosition == 1) CommandTokenizer.getUnitSuggestions() else emptyList()
+                            ".banunit", ".bu" -> if (argPosition == 1) CommandTokenizer.getGameUnitSuggestions() else emptyList()
+                            ".unbanunit", ".ubu" -> if (argPosition == 1) CommandTokenizer.getBannedUnitSuggestions() else emptyList()
+                            ".kick", ".k", ".mute", ".m" -> if (argPosition == 1) CommandTokenizer.getPlayerSuggestions() else emptyList()
+                            ".unmute", ".um" -> if (argPosition == 1) CommandTokenizer.getMutedPlayerSuggestions() else emptyList()
+                            ".summon", ".su" -> if (argPosition == 1) CommandTokenizer.getGameUnitSuggestions() else emptyList()
                             else -> emptyList()
                         }
 

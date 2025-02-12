@@ -1,5 +1,9 @@
 package command.data.unit
 
+import com.corrodinggames.rts.game.units.cj
+import com.corrodinggames.rts.game.units.custom.l
+import com.corrodinggames.rts.gameFramework.f.a22
+
 object UnitData {
     // 按类别存储单位
     private val unitsByCategory = mapOf(
@@ -163,6 +167,18 @@ object UnitData {
             UnitInfo("dummyNonUnitWithTeam", "特殊逻辑单位", UnitCategory.SPECIAL)
         )
     )
+
+    fun getAllGameUnit(): List<UnitInfo> {
+        val units = mutableListOf<UnitInfo>()
+        
+        cj.values().forEach { unit ->
+            units.add(UnitInfo(unit.name, unit.e(), UnitCategory.SPECIAL))
+        }
+        l.d.forEach { unit ->
+            units.add(UnitInfo((unit as l).M, unit.e(), UnitCategory.SPECIAL))
+        }
+        return units.toList()
+    }
 
     // 获取所有单位
     fun getAllUnits(): List<UnitInfo> {

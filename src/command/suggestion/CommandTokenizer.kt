@@ -89,6 +89,13 @@ class CommandTokenizer : MultiAutoCompleteTextView.Tokenizer {
             }
         }
 
+        // 获取所有游戏单位建议列表
+        fun getGameUnitSuggestions(): List<Suggestion> {
+            return UnitData.getAllGameUnit().map { unit ->
+                Suggestion(unit.id, "${unit.name} (${getCategoryName(unit.category)})")
+            }
+        }
+
         private fun getCategoryName(category: command.data.unit.UnitCategory): String {
             return when (category) {
                 command.data.unit.UnitCategory.AIR -> "空军"
